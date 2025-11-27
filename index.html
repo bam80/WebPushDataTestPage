@@ -566,7 +566,7 @@ function encrypt(receiverKey, vapid_headers) {
                         ebody += "<br>";
                     }
                 }
-                outStr += 'echo -ne "' + sbody + '" > encrypted.data;';
+                outStr += 'echo -ne "' + sbody + '" |';
                 // dump the raw curl to console.log. This is useful for
                 // folks doing device work.
                 rawStr = outStr;
@@ -582,7 +582,7 @@ function encrypt(receiverKey, vapid_headers) {
                 }
                 rawStr += ' -H "content-encoding: aes128gcm"';
                 rawStr += ' -H "TTL: 60"';
-                rawStr += ' --data-binary @encrypted.data';
+                rawStr += ' --data-binary @-';
                 console.log(rawStr);
 
                 // outStr is the styled version, which is easier for humans
@@ -599,7 +599,7 @@ function encrypt(receiverKey, vapid_headers) {
 
                 outStr += ` -H "content-encoding: aes128gcm"`;
                 outStr += ' -H "TTL: 60"';
-                outStr += ' --data-binary @encrypted.data';
+                outStr += ' --data-binary @-';
                 output('curl', outStr);
                 output('odata', ebody);
                 //var blob = new Blob([cbody],
